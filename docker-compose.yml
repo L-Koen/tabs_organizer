@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  web-server:
+    build:
+      context: .
+      dockerfile: compose/web_server/Dockerfile
+      args:
+        - UID=$MYUID
+        - GID=$MYGID
+    image: web_server
+    container_name: web_server
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    command: tail -f /dev/null  #/start

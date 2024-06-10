@@ -1,0 +1,13 @@
+# testing
+mypy  # https://github.com/python/mypy
+pytest  # https://github.com/pytest-dev/pytest
+pytest-django
+pytest-sugar  # https://github.com/Frozenball/pytest-sugar
+
+# Quality code
+# ------------------------------------------------------------------------------
+flake8  # https://github.com/PyCQA/flake8
+flake8-isort  # https://github.com/gforcada/flake8-isort
+coverage  # https://github.com/nedbat/coveragepy
+black  # https://github.com/psf/black
+pre-commit  # https://github.com/pre-commit/pre-commit
