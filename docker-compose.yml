@@ -10,8 +10,10 @@ services:
         - GID=$MYGID
     image: web_server
     container_name: web_server
+    environment:
+      - PYTHONPATH=/app/src/tabs_organizer
     volumes:
       - .:/app
     ports:
       - "8000:8000"
-    command: tail -f /dev/null  #/start
+    command: /start
