@@ -1,0 +1,20 @@
+{
+    "verse1": {
+        "chords": ["C","Am", "[F", "G7]", "C", "C","Am", "[F", "G7]", "C"],
+        "lyrics": "When the |night has come, | And the land is dark { And the |moon is the |only light we'll |see. \n No, I |won't be afraid Oh, I |won't be afraid { Just as |long as you |stand Stand by |me"
+    },
+    "chorus": {
+        "chords": ["C","Am", "[F", "G7]", "C"],
+        "lyrics": "So darlin', darlin', |stand by me Oh, |stand by me { Oh, |stand, | Stand by me, | stand by me"
+    },
+    "verse2": {
+        "chords": ["C","Am", "[F", "G7]", "C", "C","Am", "[F", "G7]", "C"],
+        "lyrics": "If the |sky that we look upon | Should tumble and fall { Or the |mountain should |crumble to the |sea\n  I won't |cry, I won't cry No, I |won't shed a tear { Just as |long as you |stand Stand by |me"
+    },
+    "outro": {
+        "chords": ["C","Am", "[F", "G7]", "C"],
+        "lyrics": "Whenever you're in trouble won't you |stand by me Oh, |stand by me { Oh, |stand, | Stand by me, | stand by me"
+    },
+    "structure": ["verse1", "chorus", "verse2", "chorus", "chorus", "outro"]
+
+}
