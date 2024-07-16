@@ -15,6 +15,6 @@
         "chords": ["C","Am", "[F", "G7]", "C"],
         "lyrics": "Whenever you're in trouble won't you |stand by me Oh, |stand by me { Oh, |stand, | Stand by me, | stand by me"
     },
-    "structure": ["verse1", "chorus", "verse2", "chorus", "chorus", "outro"]
+    "structure": "verse1,chorus,verse2,chorus,chorus,outro"
 
 }

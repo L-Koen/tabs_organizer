@@ -1,3 +1,7 @@
 Django
+djangorestframework
+django-filter
+drf-yasg
+markdown
 requests
 python-dotenv
