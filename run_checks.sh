@@ -1,5 +1,5 @@
 #!/bin/sh
 
-MYUID="$(id -u)" MYGID="$(id -g)" docker compose run --rm web-server mypy /app/src/
-MYUID="$(id -u)" MYGID="$(id -g)" docker compose run --rm web-server flake8 /app/src/
-MYUID="$(id -u)" MYGID="$(id -g)" docker compose run --rm web-server black --check /app/src/
+MYUID="$(id -u)" MYGID="$(id -g)" docker compose run --rm back-end mypy /app/src/
+MYUID="$(id -u)" MYGID="$(id -g)" docker compose run --rm back-end flake8 /app/src/
+MYUID="$(id -u)" MYGID="$(id -g)" docker compose run --rm back-end black --check /app/src/

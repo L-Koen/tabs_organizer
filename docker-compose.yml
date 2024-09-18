@@ -4,12 +4,12 @@ services:
   web-server:
     build:
       context: .
-      dockerfile: compose/web_server/Dockerfile
+      dockerfile: compose/back-end/Dockerfile
       args:
         - UID=$MYUID
         - GID=$MYGID
-    image: web_server
-    container_name: web_server
+    image: back-end
+    container_name: back-end
     environment:
       - PYTHONPATH=/app/src/tabs_organizer
     volumes:

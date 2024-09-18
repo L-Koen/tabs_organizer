@@ -1,1 +1,1 @@
-MYUID="$(id -u)" MYGID="$(id -g)" docker compose run --rm web-server black /app/src/
+MYUID="$(id -u)" MYGID="$(id -g)" docker compose run --rm back-end black /app/src/

@@ -14,11 +14,11 @@ RUN apt update && apt install --no-install-recommends -y \
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements/base.txt .
-COPY ./requirements/web_server.txt .
+COPY ./requirements/back-end.txt .
 
 # Create Python Dependency and Sub-Dependency Wheels.
 RUN pip wheel --wheel-dir /usr/src/app/wheels -r base.txt && \
-    pip wheel --wheel-dir /usr/src/app/wheels -r web_server.txt
+    pip wheel --wheel-dir /usr/src/app/wheels -r back-end.txt
 
 # Python 'run' stage
 FROM python as python-run-stage
@@ -42,10 +42,10 @@ RUN pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* \
   && rm -rf /wheels/
 
 # Copy entrypoint and start scripts
-COPY ./compose/web_server/entrypoint /entrypoint
+COPY ./compose/back-end/entrypoint /entrypoint
 RUN sed -i 's/\r$//g' /entrypoint && chmod +x /entrypoint
 
-COPY ./compose/web_server/start /start
+COPY ./compose/back-end/start /start
 RUN sed -i 's/\r$//g' /start && chmod +x /start
 
 # Set user and group to work with non-root user and volumes
