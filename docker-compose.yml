@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  web-server:
+  back-end:
     build:
       context: .
       dockerfile: compose/back-end/Dockerfile
