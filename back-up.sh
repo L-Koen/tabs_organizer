@@ -1,0 +1,1 @@
+docker cp back-end:/app/db.sqlite3 ~/backup/db_backup.sqlite3

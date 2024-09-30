@@ -13,7 +13,28 @@ services:
     environment:
       - PYTHONPATH=/app/src/tabs_organizer
     volumes:
-      - .:/app
+      - .:/app  # Mounts your project directory for code changes
+      - sqlite_data:/app/db.sqlite3  # Volume for SQLite database persistence
     ports:
       - "8000:8000"
     command: /start
+  
+  front-end:
+    build:
+      context: .
+      dockerfile: compose/front-end/Dockerfile
+      args:
+        - UID=$MYUID
+        - GID=$MYGID
+    image: front-end
+    container_name: front-end
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src/frontend:/app  # Map the frontend source files for live reloading
+    stdin_open: true  # Keep the container open
+    tty: true         # Keep the container running
+  
+volumes:
+  sqlite_data:  # Defines a named volume for SQLite data
+
