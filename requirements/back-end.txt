@@ -5,3 +5,4 @@ drf-yasg
 markdown
 requests
 python-dotenv
+django-cors-headers

@@ -14,6 +14,9 @@ import os
 from pathlib import Path
 
 from dotenv import load_dotenv
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 # Load environment variables
 ENV_FILE = "/app/.env"
@@ -48,6 +51,7 @@ INSTALLED_APPS = [
     "songbook",
     "rest_framework",
     "drf_yasg",
+    "corsheaders",
 ]
 
 REST_FRAMEWORK = {
@@ -59,10 +63,13 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticatedOrReadOnly",
     ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20,  # or any number you prefer
 }
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -143,3 +150,15 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+
+
+# CORS_ALLOW_ALL_ORIGINS = False
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://front-end:3000",
+    "http://192.168.1.132:3000",
+#     "http://your-frontend-domain.com",
+]
