@@ -4,7 +4,7 @@ import React, { useEffect, useCallback, useState } from 'react';
 import './SongBook.css';
 
 
-const Songbook = () => {
+const SongBook = () => {
   const [songs, setSongs] = useState([]); // Store the list of songs here
   const [currentPage, setCurrentPage] = useState(1); // Keep track of the current page
 
@@ -32,7 +32,7 @@ const Songbook = () => {
           songs.map((song, index) => (
             <li key={index}>
               <button onClick={() => handleSongClick(song)}>
-                {song.title} - {song.artist}
+                {song.title} - {song.artist.name}
               </button>
             </li>
           ))
@@ -65,4 +65,4 @@ const handleSongClick = (song) => {
   };
   
 
-export default Songbook;
+export default SongBook;

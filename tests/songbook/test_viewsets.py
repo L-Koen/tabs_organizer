@@ -31,8 +31,9 @@ class TestArtistViewSet:
         Artist.objects.create(name=self.artist_data["name"])
         response = api_client.get(self.url, format='json')
         assert response.status_code == 200
-        assert len(response.data) == 1
-        assert response.data[0]['name'] == self.artist_data['name']
+        assert len(response.data["results"]) == 1
+        assert response.data["count"] == 1
+        assert response.data["results"][0]['name'] == self.artist_data['name']
 
 
 @pytest.mark.django_db
@@ -55,6 +56,7 @@ class TestSongViewSet:
         """ Test that an authenticated user can create a song.
         """
         response = authenticated_client.post(self.url, self.song_data, format='json')
+        print(response.data) 
         assert response.status_code == 201
         assert response.data['title'] == self.song_data['title']
 
@@ -75,5 +77,6 @@ class TestSongViewSet:
         )
         response = api_client.get(self.url, format='json')
         assert response.status_code == 200
-        assert len(response.data) == 1
-        assert response.data[0]['title'] == self.song_data['title']
+        assert len(response.data["results"]) == 1
+        assert response.data["count"] == 1
+        assert response.data["results"][0]['title'] == self.song_data['title']
