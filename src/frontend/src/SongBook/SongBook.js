@@ -1,12 +1,13 @@
 // Songbook.js
 import React, { useEffect, useCallback, useState } from 'react';
-//import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; 
 import './SongBook.css';
 
 
 const SongBook = () => {
   const [songs, setSongs] = useState([]); // Store the list of songs here
   const [currentPage, setCurrentPage] = useState(1); // Keep track of the current page
+  const navigate = useNavigate();
 
   // Fetch songs from the backend
   const fetchSongs = useCallback(async () => {
@@ -24,6 +25,10 @@ const SongBook = () => {
     fetchSongs();
   }, [fetchSongs]); // Run fetchSongs when the component mounts or when currentPage changes
 
+  const handleSongClick = (song) => {
+    navigate(`/song/${song.id}`); // Navigate to SongDetails page
+  };
+
   return (
     <div className="songbook-container">
       <h2>Songbook</h2>
@@ -32,7 +37,7 @@ const SongBook = () => {
           songs.map((song, index) => (
             <li key={index}>
               <button onClick={() => handleSongClick(song)}>
-                {song.title} - {song.artist.name}
+              {song.artist.name} - {song.title}
               </button>
             </li>
           ))
@@ -57,12 +62,7 @@ const SongBook = () => {
 };
 
 
-const handleSongClick = (song) => {
-    // Here, you'll want to load the cheat sheet for the song.
-    // For now, we can just log the song details.
-    console.log("Selected song:", song);
-    // You can later add logic here to fetch and show the song's details/cheat sheet.
-  };
+
   
 
 export default SongBook;

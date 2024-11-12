@@ -1,0 +1,35 @@
+/* SongDetail Page Layout */
+.song-detail-container {
+    display: flex;
+    margin-left: 100px; /* Adjust if your sidebar width differs */
+    padding: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    color: #333;
+  }
+  
+  /* Title Section */
+  .song-title-section {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-bottom: 2px solid #ddd;
+  }
+  
+  .song-title {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .artist-name {
+    font-size: 1.2em;
+    color: #666;
+    margin: 0;
+  }
+  
+  /* Song Content */
+  .song-content {
+    margin-top: 20px;
+    white-space: pre-wrap; /* To keep chords aligned in monospaced font */
+    line-height: 1.6;
+  }
+  

@@ -160,5 +160,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://front-end:3000",
     "http://192.168.1.132:3000",
+    "http://192.168.1.133:3000",
 #     "http://your-frontend-domain.com",
 ]

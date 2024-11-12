@@ -6,6 +6,7 @@ import MainContent from './Main/MainContent';
 import About from './About/About';
 import Blog from './Blog/Blog';
 import SongBook from './SongBook/SongBook';
+import SongDetails from './SongDetails/SongDetails';
 import './App.css';
 
 function App() {
@@ -23,6 +24,9 @@ function App() {
               <Route path="/songbook" element={<SongBook />} />  {/* Route for SongBook */}
               <Route path="/about" element={<About />} />  {/* Route for About */}
               <Route path="/blog" element={<Blog />} />  {/* Route for Blog */}
+
+              {/* Hidden route for individual Song Details */}
+              <Route path="/song/:id" element={<SongDetails />} />  {/* Route for SongDetails */}
             </Routes>
           </div>
         </div>
