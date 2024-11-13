@@ -9,4 +9,5 @@ router.register(r"songs", views.SongViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),
+    path("secsystem", views.LoginView.as_view(), name='login'),
 ]

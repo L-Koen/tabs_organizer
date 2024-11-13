@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "songbook",
     "rest_framework",
+    'rest_framework.authtoken',
     "drf_yasg",
     "corsheaders",
 ]
@@ -58,10 +59,12 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.BasicAuthentication",
+        'rest_framework.authentication.TokenAuthentication',
         # Add other authentication classes as needed
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticatedOrReadOnly",
+        'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 20,  # or any number you prefer
@@ -163,3 +166,5 @@ CORS_ALLOWED_ORIGINS = [
     "http://192.168.1.133:3000",
 #     "http://your-frontend-domain.com",
 ]
+
+CORS_ALLOW_CREDENTIALS = True
