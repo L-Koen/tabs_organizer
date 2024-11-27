@@ -12,7 +12,7 @@ const SongBook = () => {
   // Fetch songs from the backend
   const fetchSongs = useCallback(async () => {
     try {
-      const response = await fetch(`http://localhost:8000/songbook/songs/?page=${currentPage}`);
+      const response = await fetch(`https://developpi.local:8000/songbook/songs/?page=${currentPage}`);
       const data = await response.json();
       console.log(data)
       setSongs(data.results); // Assuming your DRF sends results in data.results

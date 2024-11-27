@@ -4,4 +4,4 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-python /app/src/tabs_organizer/manage.py runserver 0.0.0.0:8000
+python /app/src/tabs_organizer/manage.py runserver_plus --cert-file /app/src/frontend/cert.pem --key-file /app/scr/frontend/key.pem 0.0.0.0:8000

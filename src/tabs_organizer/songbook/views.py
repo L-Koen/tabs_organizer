@@ -2,21 +2,26 @@ from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth import authenticate
 from django.middleware.csrf import get_token
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.utils.decorators import method_decorator
+
 
 from .models import Artist, Song
 from .permissions import ReadOnlyOrAuthenticated
 from .serializers import ArtistSerializer, SongListSerializer, SongDetailSerializer, SongCreateSerializer
 
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
 class ArtistViewSet(viewsets.ModelViewSet):
     queryset = Artist.objects.all()
     serializer_class = ArtistSerializer
     permission_classes = [ReadOnlyOrAuthenticated]
 
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
 class SongViewSet(viewsets.ModelViewSet):
     queryset = Song.objects.all()
     permission_classes = [ReadOnlyOrAuthenticated]
@@ -34,6 +39,7 @@ class SongViewSet(viewsets.ModelViewSet):
         return super().get_serializer_class()
 
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
 class LoginView(APIView):
     permission_classes = [AllowAny]
 
@@ -52,11 +58,28 @@ class LoginView(APIView):
                 value=token.key,
                 httponly=True,
                 secure=True,  # Set to True in production
-                samesite='Lax'  # or 'Strict' if feasible
+                samesite="None"  # or 'Strict' if feasible
             )
-            
-            # Include CSRF token in response if needed
-            response.set_cookie('csrftoken', get_token(request), httponly=False, secure=True)
             
             return response
         return Response({"error": "Invalid credentials"}, status=400)
+
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        response = Response({"message": "Logged out successfully."}, status=200)
+        # Remove the token cookie
+        response.delete_cookie('auth_token')  # Match the cookie name set during login
+        return response
+
+
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+class AuthCheckView(APIView):
+    permission_classes = [IsAuthenticated]
+
+
+    def get(self, request, *args, **kwargs):
+        return Response({"authenticated": True}, status=200)

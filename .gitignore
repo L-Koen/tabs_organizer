@@ -184,3 +184,9 @@ cython_debug/
 /src/frontendnpm-debug.log*
 /src/frontendyarn-debug.log*
 /src/frontendyarn-error.log*
+
+#ssl
+/src/frontend/cert.pem
+/src/frontend/key.pem
+/src/frontend/cert.crt
+/src/frontend/cert.key

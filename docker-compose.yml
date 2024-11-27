@@ -30,6 +30,12 @@ services:
     container_name: front-end
     ports:
       - "3000:3000"
+    environment:
+      - HTTPS=true
+      - SSL_CRT_FILE=/app/cert.pem
+      - SSL_KEY_FILE=/app/key.pem
+    depends_on:
+      - back-end
     volumes:
       - ./src/frontend:/app  # Map the frontend source files for live reloading
     stdin_open: true  # Keep the container open

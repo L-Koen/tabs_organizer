@@ -42,6 +42,7 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "localhost").split(",")
 # Application definition
 
 INSTALLED_APPS = [
+    "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -52,27 +53,28 @@ INSTALLED_APPS = [
     "rest_framework",
     'rest_framework.authtoken',
     "drf_yasg",
-    "corsheaders",
+    "django_extensions",
 ]
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.SessionAuthentication",
-        "rest_framework.authentication.BasicAuthentication",
-        'rest_framework.authentication.TokenAuthentication',
+        "tabs_organizer.authentication.CookieTokenAuthentication",
+        #"rest_framework.authentication.SessionAuthentication",
+        #"rest_framework.authentication.BasicAuthentication",
+        #'rest_framework.authentication.TokenAuthentication',
         # Add other authentication classes as needed
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticatedOrReadOnly",
-        'rest_framework.permissions.IsAuthenticated',
+        #'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 20,  # or any number you prefer
 }
 
 MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -157,14 +159,32 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 
-# CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_ALL_ORIGINS = False
+
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "https://localhost:3000",
     "http://front-end:3000",
     "http://192.168.1.132:3000",
     "http://192.168.1.133:3000",
+    "http://developpi.local:3000",
+    "https://developpi.local:3000",
 #     "http://your-frontend-domain.com",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+
+# Allow cookies in cross-site requests
+CSRF_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SECURE = True  # Required for SameSite=None (use HTTPS in production)
+SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_SECURE = True # 
+CSRF_COOKIE_HTTPONLY = False
+
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://developpi.local:3000",  # Add your front-end's domain for CSRF protection
+]
+
+DEBUG = True

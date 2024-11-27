@@ -6,3 +6,6 @@ markdown
 requests
 python-dotenv
 django-cors-headers
+django-extensions
+Werkzeug
+pyOpenSSL
