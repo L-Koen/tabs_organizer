@@ -2,20 +2,44 @@ import React, { createContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 
+// Create the AuthContext
+
+/**
+ * AuthContext
+ * 
+ * This context provides authentication-related data and functions (e.g., login, logout)
+ * to all components in the app. It allows React components to easily access and update
+ * the authentication state.
+ */
 export const AuthContext = createContext();
 
+
+// AuthProvider Component
+/**
+ * AuthProvider
+ * 
+ * This component wraps the app (or part of it) and provides authentication context
+ * using React's Context API. It handles authentication state, login/logout functionality,
+ * and checks the user's authentication status on initial load.
+ * 
+ * @param {ReactNode} children - The child components that will have access to the AuthContext
+ */
 export const AuthProvider = ({ children }) => {
+    // State to track whether the user is authenticated
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [loading, setLoading] = useState(true); // Add loading state
+    // State to track whether authentication checks are still loading
+    const [loading, setLoading] = useState(true);
+    // React Router's navigation function for redirection
     const navigate = useNavigate();
 
-    // Check authentication status on initial load
+    // Effect to check the user's authentication status on initial load
     useEffect(() => {
+        // Retrieve CSRF token from cookies
         const csrftoken = Cookies.get('csrftoken');
-        console.log('Initial Auth Check - CSRF Token:', csrftoken);
 
+        // Send a GET request to check if the user is authenticated
         fetch('https://developpi.local:8000/songbook/auth-check', {
-            credentials: 'include',
+            credentials: 'include', //make sure to include any auth cookie
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -26,20 +50,29 @@ export const AuthProvider = ({ children }) => {
             .then((response) => {
                 console.log('Auth check response status:', response.status);
                 if (response.ok) {
-                    console.log('User is authenticated.');
+                    // console.log('User is authenticated.');
                     setIsAuthenticated(true);
                 } else {
-                    console.warn('Auth check failed. User is not authenticated.');
+                    // console.warn('Auth check failed. User is not authenticated.');
                     setIsAuthenticated(false);
                 }
             })
             .catch((error) => {
-                console.error('Auth check error:', error);
+                // console.error('Auth check error:', error);
                 setIsAuthenticated(false);
             }).finally(() => setLoading(false));
     }, []);
 
-    // Define login function
+    // Function to log in the user
+    /**
+     * login
+     * 
+     * Handles user login by sending a POST request to the server with the provided
+     * username and password. If the login is successful, the user is authenticated.
+     * 
+     * @param {string} username - The username provided by the user
+     * @param {string} password - The password provided by the user
+     */
     const login = async (username, password) => {
         const csrftoken = Cookies.get('csrftoken');
         console.log('Login attempt - CSRF Token:', csrftoken);
@@ -58,9 +91,9 @@ export const AuthProvider = ({ children }) => {
             console.log('Login response status:', response.status);
 
             if (response.ok) {
-                console.log('Login successful.');
+                // console.log('Login successful.');
                 setIsAuthenticated(true);
-                navigate('/'); // Redirect to the homepage or another protected route
+                navigate('/'); // Redirect to the homepage
             } else {
                 console.error('Login failed:', await response.json());
             }
@@ -69,7 +102,13 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    // Define logout function
+    // Function to log out the user
+    /**
+     * logout
+     * 
+     * Logs out the user by sending a POST request to the server. If successful,
+     * the user's authentication state is cleared, and they are redirected to the login page.
+     */
     const logout = async () => {
         const csrftoken = Cookies.get('csrftoken');
         console.log('Logout attempt - CSRF Token:', csrftoken);
@@ -80,7 +119,7 @@ export const AuthProvider = ({ children }) => {
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrftoken,
-                },
+                },// Provide authentication-related data and functions to child components
                 credentials: 'include',
             });
 
@@ -98,6 +137,7 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    // Provide authentication-related data and functions to child components
     return (
         <AuthContext.Provider value={{ isAuthenticated, login, logout, loading }}>
             {children}

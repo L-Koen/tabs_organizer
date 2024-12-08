@@ -1,15 +1,18 @@
+/* Style for the sidebar container */
 .sidebar {
-    width: 200px;
-    background-color: #e9ecef;
-    padding: 15px;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .sidebar li {
-    margin-bottom: 10px;
-    font-size: 18px;
-  }
+  width: 200px; /* Set a fixed width for the sidebar */
+  background-color: #e9ecef; /* Light gray background for the sidebar */
+  padding: 15px; /* Add some inner spacing to the content */
+}
+
+/* Style for the unordered list inside the sidebar */
+.sidebar ul {
+  list-style: none; /* Remove default bullet points from the list */
+  padding: 0; /* Remove default padding around the list */
+}
+
+/* Style for each list item in the sidebar */
+.sidebar li {
+  margin-bottom: 10px; /* Add spacing between each list item */
+  font-size: 18px; /* Increase the font size for better readability */
+}

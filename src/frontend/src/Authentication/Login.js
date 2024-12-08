@@ -1,13 +1,21 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../AuthContext';
+import Cookies from 'js-cookie';
 
-import CSRFToken from '../csrftoken';
+const getCSRFToken = () => {
+  return Cookies.get('csrftoken') || '';
+}
+
+
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { login } = useContext(AuthContext);
+  const CSRFToken = () => {
+    return <input type="hidden" name="csrfmiddlewaretoken" value={getCSRFToken()} />;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

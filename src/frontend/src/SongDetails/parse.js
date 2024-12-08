@@ -1,39 +1,59 @@
+/**
+ * Parses a section of lyrics and chords, aligning them for display.
+ * Handles dynamic chord alignment and optional line breaks based on screen width.
+ * 
+ * @param {Object} section - Contains `lyrics` (string) and `chords` (array) for a song section.
+ * @param {number} screenWidth - The width of the display in pixels, used for responsive formatting.
+ * @returns {Array} - An array of formatted strings, each containing aligned chords and lyrics.
+ */
 export function parseLyricsAndChords(section, screenWidth) {
     const { chords, lyrics } = section;
-    let currentLine = '';       // Keeps track of the lyrics line
-    let chordLine = '';         // Keeps track of the chords line
-    let chordIndex = 0;         // Tracks which chord to use
-    let skip = 0;               // Skip counter. After adding a chord, we need to skip spacers
-    const parsedLyrics = [];    // Array to store the final result (lyrics with chords)
+    let currentLine = '';       // Stores the current line of lyrics
+    let chordLine = '';         // Stores the corresponding line of chords
+    let chordIndex = 0;         // Tracks the current chord to be applied
+    let skip = 0;               // Skip counter to align chords with lyrics
+    const parsedLyrics = [];    // Final result: Array of aligned lyrics and chords
 
-    let charIndex = 0;  // Track character position
+    let charIndex = 0;          // Tracks character position for processing
 
-    // Process each character in the lyrics
+    // Iterate over each character in the lyrics
     for (let char of lyrics) {
         if (char === '|') {
-            // Insert the current chord into the chord line at the | position
+            /**
+             * Handle chord insertion at designated positions (|).
+             * The chord is aligned with the current position in the chord line.
+             */
             if (chords[chordIndex][0] === '[' && chordLine.length > 0) {
-                chordLine = chordLine.slice(0, -1); // if the chord starts with a measure indicator, pemove the last space
+                chordLine = chordLine.slice(0, -1); // if the chord starts with a measure indicator, remove the last space
             }
-            chordLine += chords[chordIndex] || '';
-            skip = chords[chordIndex].length;
+            chordLine += chords[chordIndex] || '';         // Add the current chord
+            skip = chords[chordIndex].length;              // Set skip to the length of the chord
             chordIndex = (chordIndex + 1) % chords.length; // Loop chords
         } else if (char === '{') {
-            // This is where we consider optional line breaks based on screen width
-            if (currentLine.length*12 >= screenWidth) {
+            /**
+             * Handle optional line breaks ({) for responsive formatting.
+             * A break is added if the current line exceeds the screen width.
+             */
+            if (currentLine.length*12 >= screenWidth) {  // Approximation: 12px per character
                 parsedLyrics.push({ chords: chordLine.trimEnd(), lyrics: currentLine.trimEnd() });
-                currentLine = ''; // Reset currentLine after adding it
-                chordLine = '';   // Reset chordLine as well
+                currentLine = ''; // Reset lines for the next segment
+                chordLine = '';   
             }
         } else if (char === '\n') {
-            // Handle explicit line breaks
+            /**
+             * Handle explicit line breaks (\n) in the lyrics.
+             * Push the current line and reset for the next one.
+             */
             parsedLyrics.push({ chords: chordLine.trimEnd(), lyrics: currentLine.trimEnd() });
-            currentLine = ''; // Reset currentLine for next line
-            chordLine = '';   // Reset chordLine as well
+            currentLine = ''; // Reset lines for the next segment
+            chordLine = '';   
         } else {
-            // Add regular characters to the current line
+            /**
+             * Handle regular characters in the lyrics.
+             * Add the character to the lyrics and spaces to the chord line if no skip is active.
+             */
             currentLine += char;
-            if (skip > 0) { // If skip > 0, do not add spaces
+            if (skip > 0) { // Decrease skip counter to align following characters
                 skip--;
             } else {
                 chordLine += ' ';    
@@ -43,17 +63,16 @@ export function parseLyricsAndChords(section, screenWidth) {
         charIndex++;
     }
 
-    // After loop, push the last remaining line if any
+    // Push any remaining content after the loop
     if (currentLine) {
         parsedLyrics.push({ chords: chordLine.trimEnd(), lyrics: currentLine.trimEnd() });
     }
 
-    // Now format the chords and lyrics interleaved
+    // Interleave chords and lyrics for final output
     return parsedLyrics.map(line => {
-       const lyricsWithChords = [];
-        
-       lyricsWithChords.push(line.chords);
-       lyricsWithChords.push(line.lyrics);
-       return lyricsWithChords.join('\n');
+       const lyricsWithChords = [];        
+       lyricsWithChords.push(line.chords); // Add the chord line
+       lyricsWithChords.push(line.lyrics); // Add the corresponding lyrics line
+       return lyricsWithChords.join('\n'); // Combine them with a newline for display
     });
 }

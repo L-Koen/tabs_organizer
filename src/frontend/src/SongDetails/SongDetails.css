@@ -1,35 +1,36 @@
-/* SongDetail Page Layout */
+/* Main container for the SongDetail page */
 .song-detail-container {
-    display: flex;
-    margin-left: 100px; /* Adjust if your sidebar width differs */
-    padding: 20px;
-    font-family: 'Courier New', Courier, monospace;
-    color: #333;
-  }
-  
-  /* Title Section */
-  .song-title-section {
-    margin-bottom: 20px;
-    padding: 10px;
-    border-bottom: 2px solid #ddd;
-  }
-  
-  .song-title {
-    font-size: 1.8em;
-    font-weight: bold;
-    margin: 0;
-  }
-  
-  .artist-name {
-    font-size: 1.2em;
-    color: #666;
-    margin: 0;
-  }
-  
-  /* Song Content */
-  .song-content {
-    margin-top: 20px;
-    white-space: pre-wrap; /* To keep chords aligned in monospaced font */
-    line-height: 1.6;
-  }
-  
+  display: flex; /* Use flexbox for layout */
+  margin-left: 100px; /* Offset to account for sidebar width */
+  padding: 20px; /* Add spacing around the content */
+  font-family: 'Courier New', Courier, monospace; /* Monospaced font for better chord alignment */
+  color: #333; /* Set text color */
+}
+
+/* Section for the song's title and artist name */
+.song-title-section {
+  margin-bottom: 20px; /* Space below the title section */
+  padding: 10px; /* Add padding around the section */
+  border-bottom: 2px solid #ddd; /* Add a subtle separator line */
+}
+
+/* Song title styling */
+.song-title {
+  font-size: 1.8em; /* Larger font size for emphasis */
+  font-weight: bold; /* Make the title bold */
+  margin: 0; /* Remove default margins */
+}
+
+/* Artist name styling */
+.artist-name {
+  font-size: 1.2em; /* Slightly smaller than the title */
+  color: #666; /* Subtle color to differentiate from the title */
+  margin: 0; /* Remove default margins */
+}
+
+/* Section for song lyrics and chords */
+.song-content {
+  margin-top: 20px; /* Add space above the content */
+  white-space: pre-wrap; /* Preserve formatting for chords and lyrics */
+  line-height: 1.6; /* Increase line height for better readability */
+}

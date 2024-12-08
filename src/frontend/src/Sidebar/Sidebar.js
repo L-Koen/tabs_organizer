@@ -1,18 +1,35 @@
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link from React Router
-import './Sidebar.css';
+import { Link } from 'react-router-dom'; // Import Link component to enable navigation between routes
+import './Sidebar.css'; // Import the CSS file for styling the sidebar
 
+/**
+ * Sidebar Component
+ * 
+ * This component represents the sidebar navigation menu of the application.
+ * It provides links to different sections of the website, allowing users to
+ * navigate seamlessly between routes.
+ */
 function Sidebar() {
   return (
+    // A <nav> element is used to define the navigation menu
     <nav className="sidebar">
       <ul>
-        <li><Link to="/">Home</Link></li>  {/* Link to the home route */}
-        <li><Link to="/songbook">SongBook</Link></li>  {/* Link to the songbook */}
-        <li><Link to="/about">About</Link></li>  {/* Link to the about page */}
-        <li><Link to="/blog">Blog</Link></li>  {/* Link to the blog page */}
+        {/* Navigation links using <Link> for client-side routing */}
+        <li>
+          <Link to="/">Home</Link> {/* Navigate to the home page */}
+        </li>
+        <li>
+          <Link to="/songbook">SongBook</Link> {/* Navigate to the SongBook page */}
+        </li>
+        <li>
+          <Link to="/about">About</Link> {/* Navigate to the About page */}
+        </li>
+        <li>
+          <Link to="/blog">Blog</Link> {/* Navigate to the Blog page */}
+        </li>
       </ul>
     </nav>
   );
 }
 
-export default Sidebar;
+export default Sidebar; // Export the Sidebar component for use in other parts of the application
