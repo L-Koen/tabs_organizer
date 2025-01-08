@@ -7,11 +7,25 @@ import MainContent from './Main/MainContent';
 import About from './About/About';
 import Blog from './Blog/Blog';
 import SongBook from './SongBook/SongBook';
-import SongDetails from './SongDetails/SongDetails';
+import SongDetails from './SongBook/SongDetails/SongDetails';
+import CreateSong from './SongBook/CreateSong/CreateSong.js';
 import Login from './Authentication/Login';
 import Logout from './Authentication/Logout';
 import './App.css';
+import FinalSongReview from './SongBook/FinalReview/FinalSongReview.js';
 
+
+// Define a default song structure
+const defaultSong = {
+  id: null,
+  title: '',
+  artist: {
+    id: null,
+    name: '',
+  },
+  lyrics_and_chords: {},
+  structure: '',
+};
 
 /**
  * PrivateRoute Component
@@ -63,7 +77,7 @@ function App() {
                 <Route path="/blog" element={<Blog />} />  {/* Route for Blog */}
 
                 {/* Routes not directly on the homepage */}
-                <Route path="/song/:id" element={<SongDetails />} />  {/* Route for SongDetails */}
+                <Route path="/song/:id" element={<SongDetails song={defaultSong} />} />  {/* Route for SongDetails */}
                 <Route path="/login" element={<Login />} />
 
                 {/* Protected routes */}
@@ -71,7 +85,17 @@ function App() {
                   <PrivateRoute>
                     <Logout />
                  </PrivateRoute>
-                    }/>
+                }/>
+                <Route path="/create-song" element={
+                  <PrivateRoute>
+                    <CreateSong song={defaultSong} />
+                  </PrivateRoute>
+                }/>
+                <Route path="/songreview" element={
+                  <PrivateRoute>
+                    <FinalSongReview song={defaultSong} />
+                  </PrivateRoute>
+                }/>
               </Routes>
             </div>
           </div>

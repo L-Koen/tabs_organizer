@@ -1,0 +1,5 @@
+.wide-textarea {
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding and border are included in width */
+    resize: vertical; /* Allow vertical resizing but prevent horizontal resizing */
+  }

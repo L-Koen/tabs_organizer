@@ -42,8 +42,15 @@ const SongBook = () => {
    * Navigates to the details page of the selected song.
    * @param {Object} song - The song object containing its ID and details
    */
-  const handleSongClick = (song) => {
-    navigate(`/song/${song.id}`); // Navigate to SongDetails page
+  const handleSongClick = async (song) => {
+    try {
+      const response = await fetch(`https://developpi.local:8000/songbook/songs/${song.id}`);
+      const songDetails = await response.json(); // Fetch song details
+      console.log(songDetails)
+      navigate(`/song/${song.id}`, { state: { song: songDetails } }); // Navigate with the song object in state
+    } catch (error) {
+      console.error('Error fetching song details:', error);
+    }
   };
 
   return (
