@@ -26,7 +26,6 @@ const CreateSong = () => {
   const [artist, setArtist] = useState(initialSong.artist.name);
 
   const [sections, setSections] = useState(() => {
-    const defaultSections = [{ name: 'Verse 1', lyrics: '', chords: [] }];
   
     if (Array.isArray(initialSong.sections) && initialSong.sections.length > 0) {
       return initialSong.sections;
@@ -36,12 +35,10 @@ const CreateSong = () => {
         lyrics: initialSong.lyrics_and_chords[key]?.lyrics || '',
         chords: initialSong.lyrics_and_chords[key]?.chords || [],
       }));
-      sections.map((section, index) => (console.log(index, section)));
-      console.log(sections);
       return sections;
     }
   
-    return defaultSections;
+    return defaultSong.sections;
   });
 
   // State for the song structure
@@ -72,7 +69,7 @@ const CreateSong = () => {
             chords: Array.isArray(value.chords) ? value.chords : [],
           }));
         }
-        return [{ name: 'Verse 1', lyrics: '', chords: [] }];
+        return defaultSong.sections;
       });
       setStructure(() => {
         if (Array.isArray(passedSong.structure)) {
